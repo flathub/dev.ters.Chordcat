@@ -25,6 +25,7 @@ modules:
     buildsystem: cmake-ninja
     config-opts:
       - "-DLIBREMIDI_NO_PIPEWIRE=TRUE" # otherwise it will try to FetchContent
+      - "-DLIBREMIDI_NO_BOOST=TRUE" # https://github.com/celtera/libremidi/issues/121
     sources:
       - type: archive
         url: https://github.com/celtera/libremidi/archive/refs/tags/v4.5.0.zip
