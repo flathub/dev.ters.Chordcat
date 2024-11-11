@@ -10,8 +10,6 @@ finish-args:
   - --device=dri
   # Pulseaudio
   - --socket=pulseaudio
-  # ~/.local/share
-  - --filesystem=xdg-data/chordcat
 rename-icon: "chordcat"
 modules:
   - shared-modules/linux-audio/fluidsynth2.json
