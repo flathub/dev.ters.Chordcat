@@ -6,46 +6,48 @@ Author: Shriram Ravindranathan <s20n@ters.dev>
 
 ---
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 37da06e..5bae18a 100644
+index b39ca12..1103e33 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -13,27 +13,19 @@ include(FetchContent)
- find_package(SFML COMPONENTS graphics audio system REQUIRED)
+@@ -20,30 +20,18 @@ find_package(
+   REQUIRED)
  
  # REMIDI
--FetchContent_Declare(REMIDI
--    GIT_REPOSITORY https://github.com/jcelerier/libremidi.git
--    GIT_TAG v4.5.0)
+-FetchContent_Declare(
+-  REMIDI
+-  GIT_REPOSITORY https://github.com/jcelerier/libremidi.git
+-  GIT_TAG v4.5.0)
 -FetchContent_MakeAvailable(REMIDI)
 +find_package(libremidi 4.5.0 REQUIRED)
  
  # FluidSynth
  find_package(FluidSynth REQUIRED)
  
--# ImGui
--FetchContent_Declare(ImGui
--    GIT_REPOSITORY https://github.com/ocornut/imgui.git
--    GIT_TAG v1.90.1)
+ # ImGui
+-FetchContent_Declare(
+-  ImGui
+-  GIT_REPOSITORY https://github.com/ocornut/imgui.git
+-  GIT_TAG v1.90.1)
 -FetchContent_MakeAvailable(ImGui)
 -
 -# ImGui-SFML
 -set(IMGUI_DIR ${imgui_SOURCE_DIR})
-+# ImGui-SFML + OpenGL
+-set(IMGUI_SFML_FIND_SFML OFF)
+-FetchContent_Declare(
+-  ImGui-SFML
+-  GIT_REPOSITORY https://github.com/SFML/imgui-sfml.git
+-  GIT_TAG v2.6)
+-FetchContent_MakeAvailable(ImGui-SFML)
 +set(IMGUI_DIR "imgui-1.90.1")
 +set(IMGUI_SFML_DIR "imgui-sfml-2.6")
- set(IMGUI_SFML_FIND_SFML OFF)
--FetchContent_Declare(ImGui-SFML
--    GIT_REPOSITORY https://github.com/SFML/imgui-sfml.git
--    GIT_TAG v2.6)
--FetchContent_MakeAvailable(ImGui-SFML)
 +include_directories(${IMGUI_DIR})
 +include_directories(${IMGUI_SFML_DIR})
 +find_package(OpenGL REQUIRED)
 +include_directories( ${OPENGL_INCLUDE_DIRS} )
  
- # Boost Property Tree
- set(Boost_USE_STATIC_LIBS OFF)
-@@ -63,13 +55,14 @@ message(STATUS "Chordcat assets path: ${APP_ASSETS_PATH}")
+ # nlohmann/json
+ find_package(nlohmann_json REQUIRED)
+@@ -71,16 +59,17 @@ message(STATUS "Chordcat assets path: ${APP_ASSETS_PATH}")
  configure_file(src/config.h.in config/config.h)
  
  file(GLOB src_files CONFIGURE_DEPENDS "src/*.cpp")
@@ -57,8 +59,11 @@ index 37da06e..5bae18a 100644
  endif()
  
 -add_executable(${PROJECT_NAME} ${src_files} ${desktop_files})
--target_link_libraries(${PROJECT_NAME} PRIVATE sfml-graphics sfml-audio sfml-system fluidsynth ImGui-SFML::ImGui-SFML Boost::boost)
 +add_executable(${PROJECT_NAME} ${src_files} ${desktop_files} ${IMGUI_SFML_DIR}/imgui-SFML.cpp ${imgui_srcs} ${IMGUI_DIR}/backends/imgui_impl_opengl3.cpp)
-+target_link_libraries(${PROJECT_NAME} PRIVATE sfml-graphics sfml-audio sfml-system fluidsynth Boost::boost ${OPENGL_LIBRARIES})
+ target_link_libraries(
+   ${PROJECT_NAME} PRIVATE sfml-graphics sfml-audio sfml-system fluidsynth
+-                          ImGui-SFML::ImGui-SFML)
++                          ${OPENGL_LIBRARIES})
  target_link_libraries(${PROJECT_NAME} PUBLIC $<BUILD_INTERFACE:libremidi>)
  target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)
+ 

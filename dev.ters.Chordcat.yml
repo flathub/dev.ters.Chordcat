@@ -30,23 +30,20 @@ modules:
       - type: archive
         url: https://github.com/celtera/libremidi/archive/refs/tags/v4.5.0.zip
         sha256: bd812e1d194125121f74388c2294e5f2d4c1b7e40ff13de9aaf2f34c18cc8d1a
-  - name: boost
-    buildsystem: simple
-    build-commands:
-    - "./bootstrap.sh --prefix=/app --with-libraries=system"
-    - "./b2 -j $FLATPAK_BUILDER_N_JOBS install"
+  - name: nlohmann-json
+    buildsystem: cmake-ninja
     sources:
       - type: archive
-        url: https://archives.boost.io/release/1.86.0/source/boost_1_86_0.tar.gz
-        sha256: 2575e74ffc3ef1cd0babac2c1ee8bdb5782a0ee672b1912da40e5b4b591ca01f
+        url: https://github.com/nlohmann/json/archive/refs/tags/v3.11.3.zip
+        sha256: 04022b05d806eb5ff73023c280b68697d12b93e1b7267a0b22a1a39ec7578069
   - name: chordcat
     buildsystem: cmake-ninja
     config-opts:
       - "-DCMAKE_BUILD_TYPE=Release"
     sources:
       - type: archive
-        url: https://github.com/shriramters/chordcat/archive/refs/tags/v0.2.1.zip
-        sha256: 1c087690d5dfa401ff8a856bbb75b124a99de97e5c938f044a4a1cffff5d5475
+        url: https://github.com/shriramters/chordcat/archive/refs/tags/v0.3.0.zip
+        sha256: 91ad7a17f3a672843133c3838bd6adfdd8602515df1edbd252d9d0ab8754c86e
       - type: patch
         path: "patches/cmakelists.patch"
       - type: archive
