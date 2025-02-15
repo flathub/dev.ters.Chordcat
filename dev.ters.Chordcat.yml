@@ -46,6 +46,8 @@ modules:
         sha256: 27211edcf0ef64b5b7dcd4689745e21888b765e3585510c80923f5031f03ec0d
       - type: patch
         path: "patches/cmakelists.patch"
+      - type: patch
+        path: "patches/broken-url.patch"
       - type: archive
         url: https://github.com/ocornut/imgui/archive/refs/tags/v1.90.1.zip
         sha256: cd19fa664339e7428a313f5ac363fae79f946903e2a6e93f62481f7354badab3
