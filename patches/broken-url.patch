@@ -1,0 +1,13 @@
+diff --git a/desktop/dev.ters.Chordcat.metainfo.xml b/desktop/dev.ters.Chordcat.metainfo.xml
+index 0405c34..348526d 100644
+--- a/desktop/dev.ters.Chordcat.metainfo.xml
++++ b/desktop/dev.ters.Chordcat.metainfo.xml
+@@ -55,7 +55,7 @@
+   <launchable type="desktop-id">dev.ters.Chordcat.desktop</launchable>
+   <screenshots>
+     <screenshot type="default">
+-      <image>https://shriramters.github.io/chordcat/chordcat-0.4.0-staff</image>
++      <image>https://shriramters.github.io/chordcat/chordcat-0.4.0-staff.png</image>
+       <caption>Playing the A7 chord with the key set to A Major</caption>
+     </screenshot>
+     <screenshot>
