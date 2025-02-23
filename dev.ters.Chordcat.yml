@@ -17,10 +17,11 @@ modules:
     buildsystem: cmake-ninja
     config-opts:
       - "-DSFML_INSTALL_PKGCONFIG_FILES=TRUE"
+      - "-DBUILD_SHARED_LIBS=ON"
     sources:
       - type: archive
-        url: http://www.sfml-dev.org/files/SFML-2.5.1-sources.zip
-        sha256: bf1e0643acb92369b24572b703473af60bac82caf5af61e77c063b779471bb7f
+        url: https://www.sfml-dev.org/files/SFML-3.0.0-sources.zip
+        sha256: 8cc41db46b59f07c44ecf21c74a0f956d37735dec9d90ff4522856cb162ba642
   - name: libremidi
     buildsystem: cmake-ninja
     config-opts:
@@ -42,17 +43,15 @@ modules:
       - "-DCMAKE_BUILD_TYPE=Release"
     sources:
       - type: archive
-        url: https://github.com/shriramters/chordcat/archive/refs/tags/v0.4.0.zip
-        sha256: 27211edcf0ef64b5b7dcd4689745e21888b765e3585510c80923f5031f03ec0d
+        url: https://github.com/shriramters/chordcat/archive/refs/tags/v0.5.0.zip
+        sha256: f630dc44c826c48a16f657459701f2307f421a5c6c4061a55d817554a57dfc78
       - type: patch
         path: "patches/cmakelists.patch"
-      - type: patch
-        path: "patches/broken-url.patch"
       - type: archive
-        url: https://github.com/ocornut/imgui/archive/refs/tags/v1.90.1.zip
-        sha256: cd19fa664339e7428a313f5ac363fae79f946903e2a6e93f62481f7354badab3
-        dest: imgui-1.90.1  # This will extract ImGui to imgui-1.90.1
+        url: https://github.com/ocornut/imgui/archive/refs/tags/v1.91.8.zip
+        sha256: c17aa6abe51dda39b0ea503b855b4a819a30d3affa6d53fb887541c29d686b98
+        dest: imgui-1.91.8  # This will extract ImGui to imgui-1.91.8
       - type: archive
-        url: https://github.com/SFML/imgui-sfml/archive/refs/tags/v2.6.zip
-        sha256: 0d28217ae7a17f846c1e994942b18e6f592e2c60bea1e3bf07e2d2d443cd1449
-        dest: imgui-sfml-2.6 # This will extract ImGui-SFML to imgui-sfml-2.6
+        url: https://github.com/SFML/imgui-sfml/archive/refs/tags/v3.0.zip
+        sha256: 000d37c5a2cf6b4cf64fc65183af70cbe1b0f798c0598d2bc0acbad09d69286f
+        dest: imgui-sfml-3.0 # This will extract ImGui-SFML to imgui-sfml-3.0
