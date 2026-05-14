@@ -1,8 +1,9 @@
 id: dev.ters.Chordcat
 runtime: org.freedesktop.Platform
-runtime-version: '24.08'
+runtime-version: '25.08'
 sdk: org.freedesktop.Sdk
 command: chordcat
+rename-icon: chordcat
 finish-args:
   # X11 (x11 ipc) + openGL (dri) access
   - --share=ipc
@@ -10,14 +11,21 @@ finish-args:
   - --device=dri
   # Pulseaudio
   - --socket=pulseaudio
-rename-icon: "chordcat"
+cleanup:
+  - /include
+  - /lib/cmake
+  - /lib/pkgconfig
+  - /share/cmake
+  - /share/doc
+  - /share/pkgconfig
+  - '*.a'
 modules:
   - shared-modules/linux-audio/fluidsynth2.json
   - name: SFML
     buildsystem: cmake-ninja
     config-opts:
-      - "-DSFML_INSTALL_PKGCONFIG_FILES=TRUE"
-      - "-DBUILD_SHARED_LIBS=ON"
+      - -DSFML_INSTALL_PKGCONFIG_FILES=TRUE
+      - -DBUILD_SHARED_LIBS=ON
     sources:
       - type: archive
         url: https://www.sfml-dev.org/files/SFML-3.0.0-sources.zip
@@ -25,8 +33,8 @@ modules:
   - name: libremidi
     buildsystem: cmake-ninja
     config-opts:
-      - "-DLIBREMIDI_NO_PIPEWIRE=TRUE" # otherwise it will try to FetchContent
-      - "-DLIBREMIDI_NO_BOOST=TRUE" # https://github.com/celtera/libremidi/issues/121
+      - -DLIBREMIDI_NO_PIPEWIRE=TRUE # otherwise it will try to FetchContent
+      - -DLIBREMIDI_NO_BOOST=TRUE # https://github.com/celtera/libremidi/issues/121
     sources:
       - type: archive
         url: https://github.com/celtera/libremidi/archive/refs/tags/v4.5.0.zip
@@ -40,13 +48,13 @@ modules:
   - name: chordcat
     buildsystem: cmake-ninja
     config-opts:
-      - "-DCMAKE_BUILD_TYPE=Release"
+      - -DCMAKE_BUILD_TYPE=Release
     sources:
       - type: archive
         url: https://github.com/shriramters/chordcat/archive/refs/tags/v0.5.0.zip
         sha256: f630dc44c826c48a16f657459701f2307f421a5c6c4061a55d817554a57dfc78
       - type: patch
-        path: "patches/cmakelists.patch"
+        path: patches/cmakelists.patch
       - type: archive
         url: https://github.com/ocornut/imgui/archive/refs/tags/v1.91.8.zip
         sha256: c17aa6abe51dda39b0ea503b855b4a819a30d3affa6d53fb887541c29d686b98
